@@ -7,10 +7,9 @@ export default function App() {
       alignItems: "center",
       background: "#0f172a",
       color: "white",
-      fontSize: "24px",
-      fontFamily: "sans-serif"
+      fontSize: "24px"
     }}>
-      🚀 Plateforme IA TikTok — en ligne
+      🚀 Plateforme IA TikTok – en ligne
     </div>
   );
 }
