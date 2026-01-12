@@ -1,10 +1,16 @@
-function App() {
+export default function App() {
   return (
-    <div style={{ padding: 40 }}>
-      <h1>Plateforme IA TikTok</h1>
-      <p>L’application démarre correctement ✅</p>
+    <div style={{
+      minHeight: "100vh",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      background: "#0f172a",
+      color: "white",
+      fontSize: "24px",
+      fontFamily: "sans-serif"
+    }}>
+      🚀 Plateforme IA TikTok — en ligne
     </div>
   );
 }
-
-export default App;
