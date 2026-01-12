@@ -1,63 +1,44 @@
-import { useEffect, useState } from "react";
-import { supabase } from "./supabaseClient";
+import { useEffect, useState } from 'react'
+import { supabase } from './supabaseClient'
 
-export default function App() {
-  const [user, setUser] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
+function App() {
+  const [user, setUser] = useState<any>(null)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // 1. Récupérer la session actuelle
     supabase.auth.getSession().then(({ data }) => {
-      setUser(data.session?.user ?? null);
-      setLoading(false);
-    });
+      setUser(data.session?.user ?? null)
+      setLoading(false)
+    })
 
-    // 2. Écouter les changements de connexion
     const { data: listener } = supabase.auth.onAuthStateChange(
       (_event, session) => {
-        setUser(session?.user ?? null);
+        setUser(session?.user ?? null)
       }
-    );
+    )
 
     return () => {
-      listener.subscription.unsubscribe();
-    };
-  }, []);
+      listener.subscription.unsubscribe()
+    }
+  }, [])
 
-  if (loading) {
-    return <p>Chargement...</p>;
-  }
+  if (loading) return <div>Loading...</div>
 
-  // ❌ PAS CONNECTÉ
   if (!user) {
     return (
-      <div style={{ padding: 40 }}>
-        <h1>Connexion</h1>
-        <button
-          onClick={() =>
-            supabase.auth.signInWithOAuth({
-              provider: "github",
-            })
-          }
-        >
-          Login with GitHub
-        </button>
-      </div>
-    );
+      <button
+        onClick={() =>
+          supabase.auth.signInWithOAuth({
+            provider: 'github',
+          })
+        }
+      >
+        Login with GitHub
+      </button>
+    )
   }
 
-  // ✅ CONNECTÉ
-  return (
-    <div style={{ padding: 40 }}>
-      <h1>Dashboard</h1>
-      <p>Connecté en tant que :</p>
-      <strong>{user.email}</strong>
-
-      <br /><br />
-
-      <button onClick={() => supabase.auth.signOut()}>
-        Se déconnecter
-      </button>
-    </div>
-  );
+  return <h1>Dashboard</h1>
 }
+
+export default App
